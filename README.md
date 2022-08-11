@@ -34,7 +34,7 @@ To the `scopedRegistries` section:
 To the `dependencies` section:
 ```
  "jp.keijiro.pcx": "1.0.1",
- "com.egemenertugrul.pointcloudplayer": "1.0.0",
+ "com.egemenertugrul.pointcloudplayer": "1.0.14",
 ```
 
 The manifest file should like like:
@@ -54,6 +54,6 @@ The manifest file should like like:
   ],
   "dependencies": {
     "jp.keijiro.pcx": "1.0.1",
-    "com.egemenertugrul.pointcloudplayer": "1.0.0",
+    "com.egemenertugrul.pointcloudplayer": "1.0.14",
     ...
 ```
