@@ -7,7 +7,7 @@ PCP uses a modified version of `PlyImporter.cs` from [keijiro/Pcx](https://githu
 
 ![Demo](https://imgur.com/UkSCUDq.gif)
 
-# Requirements
+## Minimum Requirements
 - Unity 2019.4
 
 # Installation
