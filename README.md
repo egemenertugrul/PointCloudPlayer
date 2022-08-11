@@ -42,7 +42,7 @@ The manifest file should like like:
     }
   ],
   "dependencies": {
-    "com.egemenertugrul.pointcloudplayer": "1.0.0",
+    "com.egemenertugrul.pointcloudplayer": "1.0.16",
     ...
 ```
 
