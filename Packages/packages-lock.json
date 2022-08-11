@@ -1,12 +1,10 @@
 {
   "dependencies": {
     "com.egemenertugrul.pointcloudplayer": {
-      "version": "1.0.14",
+      "version": "1.0.16",
       "depth": 0,
       "source": "registry",
-      "dependencies": {
-        "jp.keijiro.pcx": "1.0.1"
-      },
+      "dependencies": {},
       "url": "https://registry.npmjs.com"
     },
     "com.unity.collab-proxy": {
@@ -109,13 +107,6 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
-    },
-    "jp.keijiro.pcx": {
-      "version": "1.0.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://registry.npmjs.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
