@@ -1,0 +1,4 @@
+[submodule "Runtime/ThirdParty/Pcx"]
+	path = Runtime/ThirdParty/Pcx
+	url = https://github.com/keijiro/Pcx.git
+	branch = upm

@@ -2,7 +2,7 @@
   "name": "com.egemenertugrul.pointcloudplayer",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/egemenertugrul/pointcloudplayer.git"
+    "url": "git+https://github.com/egemenertugrul/pointcloudplayer.git#release/stable"
   },
   "version": "1.0.1",
   "displayName": "Point Cloud Player",
