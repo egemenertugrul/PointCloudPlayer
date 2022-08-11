@@ -40,7 +40,7 @@ To the `dependencies` section:
 The manifest file should like like:
 ```
 {
-    scopedRegistries": [
+    "scopedRegistries": [
     {
       "name": "Keijiro",
       "url": "https://registry.npmjs.com",
