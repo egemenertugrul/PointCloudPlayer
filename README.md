@@ -9,9 +9,11 @@ PCP uses [keijiro/Pcx](https://github.com/keijiro/Pcx) under the hood.
 
 # Requirements
 - Unity 2019.4
+- [keijiro/Pcx](https://github.com/keijiro/Pcx)
 
 # Installation
 
+## Scoped Registry
 Use the [scoped registry](https://docs.unity3d.com/Manual/upm-scoped.html) feature to import the packages.
 
 Add the following in the package manifest file `Packages/manifest.json`
@@ -57,3 +59,7 @@ The manifest file should like like:
     "com.egemenertugrul.pointcloudplayer": "1.0.14",
     ...
 ```
+
+## Asset Package
+
+Download and install the latest .unitypackage from [Releases](https://github.com/egemenertugrul/PointCloudPlayer/releases).
