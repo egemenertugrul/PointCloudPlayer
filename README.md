@@ -63,3 +63,35 @@ The manifest file should like like:
 ## Asset Package
 
 Download and install the latest .unitypackage from [Releases](https://github.com/egemenertugrul/PointCloudPlayer/releases).
+
+# Demo
+
+You can try replaying the basketball pick-up game recording. 
+
+- Copy the `/Runtime/PointCloudPlayer_ExampleScene.unity` scene to a directory under `/Assets/` and open.
+
+- Download the demo [.ply dataset](https://drive.google.com/file/d/1nYlKXekA25xuq3vdRwbUMiJqUvn1ufbZ/view?usp=sharing).
+
+- Unzip to the `/StreamingAssets/`. The folder structure should look like this:
+```
+/StreamingAssets/Basketball_PLY/Cam1/
+/StreamingAssets/Basketball_PLY/Cam1/2022-07-22_15-52-41_0000.ply
+/StreamingAssets/Basketball_PLY/Cam1/2022-07-22_15-52-41_0001.ply
+...
+
+/StreamingAssets/Basketball_PLY/Cam2/
+/StreamingAssets/Basketball_PLY/Cam2/2022-07-22_15-52-41_0001.ply
+/StreamingAssets/Basketball_PLY/Cam2/2022-07-22_15-52-41_0001.ply
+...
+```
+
+## How the .PLY dataset was recorded
+The recordings were done using iPi Recorder 4 with two KinectV2's facing each other.
+
+<center><img src="https://imgur.com/jFSuXMV.jpg" style="width: 50%;"></center>
+
+Later, they recordings were exported as .PLY files using the Biomech add-on in iPi Mocap Studio 4. Since no prior calibration was performed on the iPi side, transformations between the two cameras/recordings were manually adjusted in the Unity scene.
+
+    A non-proprietary solution would definitely be more welcome for the future of this project.
+
+    
