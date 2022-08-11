@@ -4,14 +4,11 @@
     "type": "git",
     "url": "git+https://github.com/egemenertugrul/pointcloudplayer.git#release/stable"
   },
-  "version": "1.0.14",
+  "version": "1.0.16",
   "displayName": "Point Cloud Player",
   "description": "Point cloud / volumetric video player for Unity",
   "unity": "2019.4",
   "unityRelease": "0b5",
-  "dependencies": {
-    "jp.keijiro.pcx": "1.0.1"
-  },
   "keywords": [
     "unity",
     "point cloud",
