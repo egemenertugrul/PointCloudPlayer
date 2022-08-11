@@ -1,7 +1,7 @@
 Point Cloud / Volumetric Video Player for Unity
 =============================================
 
-**Point Cloud Player (PCP)** is a tool for reading & playing series of .PLY files as point clouds / volumetric videos. It can import .PLY files on-the-fly from `Local/Remote/StreamingAssets` sources and display through the native particle system.
+**Point Cloud Player (PCP)** is a tool for reading & playing series of .PLY files as point clouds / volumetric videos. It can import .PLY files on-the-fly from `Local`, `Remote`, and `StreamingAssets` sources and display through the native particle system.
 
 PCP uses [keijiro/Pcx](https://github.com/keijiro/Pcx) under the hood.
 
