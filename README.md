@@ -5,7 +5,7 @@ Point Cloud / Volumetric Video Player for Unity
 
 PCP uses [keijiro/Pcx](https://github.com/keijiro/Pcx) under the hood.
 
-![Demo](https://imgur.com/aOx1UzN.gif)
+![Demo](https://imgur.com/UkSCUDq.gif)
 
 # Requirements
 - Unity 2019.4
