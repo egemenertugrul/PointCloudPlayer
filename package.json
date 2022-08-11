@@ -1,6 +1,9 @@
 {
   "name": "com.egemenertugrul.pointcloudplayer",
-  "repository": "github:egemenertugrul/pointcloudplayer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egemenertugrul/pointcloudplayer.git"
+  },
   "version": "1.0.0",
   "displayName": "Point Cloud Player",
   "description": "Point cloud / volumetric video player for Unity",
@@ -8,15 +11,21 @@
   "unityRelease": "0b5",
   "//dependencies": {
     "//jp.keijiro.pcx": "1.0.1"
- },
- "keywords": [
-   "unity",
-   "point cloud",
-   "volumetric video",
-   "player"
+  },
+  "keywords": [
+    "unity",
+    "point cloud",
+    "volumetric video",
+    "player"
   ],
-  "author": {
-    "name": "Egemen Ertugrul",
-    "url": "https://egemenertugrul.github.io"
-  }
+  "author": "Egemen Ertugrul (https://egemenertugrul.github.io)",
+  "bugs": {
+    "url": "https://github.com/egemenertugrul/pointcloudplayer/issues"
+  },
+  "homepage": "https://github.com/egemenertugrul/pointcloudplayer#readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC"
 }
