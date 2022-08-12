@@ -23,7 +23,10 @@ Go to Edit > Project Settings...
 
 PCP uses a modified version of `PlyImporter.cs` from [keijiro/Pcx](https://github.com/keijiro/Pcx).
 
-![Demo](https://imgur.com/UkSCUDq.gif)
+
+Desktop / Editor            |  Augmented Reality
+:-------------------------:|:-------------------------:
+![](https://imgur.com/UkSCUDq.gif)  |  ![](https://imgur.com/qdEcx1H.gif)
 
 ## Minimum Requirements
 - Unity 2019.4
@@ -46,10 +49,10 @@ To the `scopedRegistries` section:
 
 To the `dependencies` section:
 ```
- "com.egemenertugrul.pointcloudplayer": "1.0.16",
+ "com.egemenertugrul.pointcloudplayer": "1.0.17",
 ```
 
-The manifest file should like like:
+The manifest file should look like:
 ```
 {
     "scopedRegistries": [
@@ -60,7 +63,7 @@ The manifest file should like like:
     }
   ],
   "dependencies": {
-    "com.egemenertugrul.pointcloudplayer": "1.0.16",
+    "com.egemenertugrul.pointcloudplayer": "1.0.17",
     ...
 ```
 
@@ -77,7 +80,7 @@ You can try replaying the basketball pick-up game recording.
 
 - Download the demo [.ply dataset](https://drive.google.com/file/d/1nYlKXekA25xuq3vdRwbUMiJqUvn1ufbZ/view?usp=sharing).
 
-- Unzip to the `/StreamingAssets/`. The folder structure should look like this:
+- Unzip to the `/StreamingAssets/`. The file structure should look like this:
 ```
 /StreamingAssets/Basketball_PLY/Cam1/
 /StreamingAssets/Basketball_PLY/Cam1/2022-07-22_15-52-41_0000.ply
@@ -93,7 +96,7 @@ You can try replaying the basketball pick-up game recording.
 ## How the .PLY dataset was recorded
 The recordings were done using iPi Recorder 4 with two KinectV2's facing each other.
 
-<center><img src="https://imgur.com/jFSuXMV.jpg" style="width: 50%;"></center>
+<img src="https://imgur.com/jFSuXMV.jpg" style="width: 50%;">
 
 Later, they recordings were exported as .PLY files using the Biomech add-on in iPi Mocap Studio 4. Since no prior calibration was performed on the iPi side, transformations between the two cameras/recordings were manually adjusted in the Unity scene.
 
