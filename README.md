@@ -1,5 +1,23 @@
 Point Cloud / Volumetric Video Player for Unity
 =============================================
+--
+## Augmented Reality Branch
+
+ARFoundation v4.2.3
+
+### Set up:
+
+Go to Edit > Project Settings...
+
+**For Android**
+- XR Plug-in Management > Android.
+- Check ARCore in Plug-in Providers.
+
+**For iOS**
+- XR Plug-in Management > iOS.
+- Check ARKit in Plug-in Providers.
+
+--
 
 **Point Cloud Player (PCP)** is a tool for reading & playing series of .PLY files as point clouds / volumetric videos. It can import .PLY files on-the-fly from `Local`, `Remote`, and `StreamingAssets` sources and display through the native particle system.
 
