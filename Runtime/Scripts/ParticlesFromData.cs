@@ -10,9 +10,8 @@ namespace PCP
         ParticleSystem.MainModule psMain;
         ParticleSystemRenderer psRen;
         ParticleSystem.EmissionModule psEmi;
-        public Material mat;
         public int lifetime = 1;
-        public int maxParticleCount = 50000; // number of particles to spawn
+        //public int maxParticleCount = 50000; // number of particles to spawn
 
         public GameObject particleGOPrefab;
 
@@ -20,31 +19,39 @@ namespace PCP
 
         private void Start()
         {
-            ps = gameObject.GetComponent<ParticleSystem>();
+            ps = Instantiate(particleGOPrefab, transform).GetComponent<ParticleSystem>();
+            ps.gameObject.layer = LayerMask.NameToLayer("PCL");
+
+            //ps = gameObject.GetComponent<ParticleSystem>();
             psMain = ps.main;
 
             psMain.startLifetime = lifetime;
-            psMain.maxParticles = maxParticleCount;
+            //psMain.maxParticles = maxParticleCount;
             psMain.simulationSpace = ParticleSystemSimulationSpace.World;
             psMain.startSpeed = 0f;
             psMain.startSize = 0.02f;
 
-            psRen = GetComponent<ParticleSystemRenderer>();
-            psRen.material = mat;
+            //psRen = GetComponent<ParticleSystemRenderer>();
+            //psRen.material = mat;
 
             psEmi = ps.emission;
             psEmi.enabled = true;
-            psEmi.rateOverTime = maxParticleCount;
+            //psEmi.rateOverTime = maxParticleCount;
         }
 
         public void Set(List<Vector3> vertices, List<Color32> colors)
         {
+            ps.Emit(vertices.Count);
             Set(ps, vertices, colors);
         }
 
         public void Set(ParticleSystem ps, List<Vector3> vertices, List<Color32> colors)
         {
             ParticleSystem.Particle[] particles = new ParticleSystem.Particle[vertices.Count];
+            ParticleSystem.MainModule main = ps.main;
+            ParticleSystem.EmissionModule emission = ps.emission;
+            main.maxParticles = vertices.Count;
+            emission.rateOverTime = vertices.Count;
             ps.GetParticles(particles);
 
             for (int i = 0; i < vertices.Count; i++)
@@ -56,7 +63,7 @@ namespace PCP
         }
 
 
-        public void New(List<Vector3> vertices, List<Color32> colors, float duration = 0)
+        public void New(List<Vector3> vertices, List<Color32> colors)
         {
             var ps = Instantiate(particleGOPrefab).GetComponent<ParticleSystem>();
 
@@ -64,15 +71,15 @@ namespace PCP
             //main.gravityModifier = 1;
 
             main.startLifetime = lifetime;
-            main.maxParticles = maxParticleCount;
+            main.maxParticles = vertices.Count;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
             main.startSpeed = 0f;
             main.startSize = 0.02f;
 
             Set(ps, vertices, colors);
 
-            if (duration > 0)
-                Destroy(ps.gameObject, duration);
+            if (lifetime > 0)
+                Destroy(ps.gameObject, lifetime);
         }
     }
 }

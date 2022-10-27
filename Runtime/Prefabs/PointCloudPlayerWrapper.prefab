@@ -30,9 +30,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7084682812068978550}
-  - {fileID: 7483179053993977397}
+  - {fileID: 5979152077285608065}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1350559811704260429
 MonoBehaviour:
@@ -48,15 +48,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players:
   - {fileID: 7084682812068978551}
-  - {fileID: 7483179053993977396}
-  MaxFPS: 30
+  - {fileID: 5979152077285608064}
+  MaxFPS: 60
 --- !u!1001 &5979152077648819461
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 1350559811704260428}
     m_Modifications:
+    - target: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: FPS
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: BufferSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: filterEveryN
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: StreamingAssetsPath
+      value: C:\Users\Egemen\Unity Projects\PointCloudPlayer\Assets\StreamingAssets\Basketball_PLY\Cam1
+      objectReference: {fileID: 0}
     - target: {fileID: 3507158803170994803, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -105,8 +122,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: PointCloudPlayer_1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3507158803170994805, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3507158803170994813, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+    - {fileID: 3507158803170994814, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+--- !u!1 &7084682812068978544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3507158803170994805, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+  m_PrefabInstance: {fileID: 5979152077648819461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1585360581
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084682812068978544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 2, z: 3}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1585360580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084682812068978544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c398b4b322cce04e93555c3fdc1d36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleGOPrefab: {fileID: 7243102080313546402, guid: d6ce2fa3001792b42906ea2306222f9f, type: 3}
 --- !u!4 &7084682812068978550 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3507158803170994803, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
@@ -117,22 +172,39 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
   m_PrefabInstance: {fileID: 5979152077648819461}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7084682812068978544}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2561dbf34db9ac4b93a51140134037c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &6301232875615308870
+--- !u!1001 &7084682811692671218
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 1350559811704260428}
     m_Modifications:
+    - target: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: FPS
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: BufferSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: filterEveryN
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: StreamingAssetsPath
+      value: C:\Users\Egemen\Unity Projects\PointCloudPlayer\Assets\StreamingAssets\Basketball_PLY\Cam2
+      objectReference: {fileID: 0}
     - target: {fileID: 3507158803170994803, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3507158803170994803, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -178,21 +250,59 @@ PrefabInstance:
       propertyPath: m_Name
       value: PointCloudPlayer_2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3507158803170994805, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3507158803170994813, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+    - {fileID: 3507158803170994814, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
---- !u!114 &7483179053993977396 stripped
+--- !u!114 &5979152077285608064 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3507158803170994802, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
-  m_PrefabInstance: {fileID: 6301232875615308870}
+  m_PrefabInstance: {fileID: 7084682811692671218}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 5979152077285608071}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2561dbf34db9ac4b93a51140134037c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &7483179053993977397 stripped
+--- !u!4 &5979152077285608065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3507158803170994803, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
-  m_PrefabInstance: {fileID: 6301232875615308870}
+  m_PrefabInstance: {fileID: 7084682811692671218}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5979152077285608071 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3507158803170994805, guid: bd05a95dce721a94e852d3dc5532b5d4, type: 3}
+  m_PrefabInstance: {fileID: 7084682811692671218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &539345298
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979152077285608071}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 2, z: 3}
+  m_Center: {x: 0, y: 1, z: 1.43}
+--- !u!114 &539345297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979152077285608071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c398b4b322cce04e93555c3fdc1d36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleGOPrefab: {fileID: 7243102080313546402, guid: d6ce2fa3001792b42906ea2306222f9f, type: 3}

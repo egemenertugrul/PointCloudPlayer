@@ -13,7 +13,6 @@ using System.Linq;
 using System.Collections;
 
 using CielaSpike;
-using System.Net;
 using UnityEngine.Networking;
 using PCP.Utils;
 
@@ -123,7 +122,7 @@ namespace PCP
                 path = Path.Combine(Application.streamingAssetsPath, path);
             }
 
-            if (readMode == PointCloudPlayer.DataReadModes.Local || readMode == PointCloudPlayer.DataReadModes.StreamingAssets && isEditor)
+            if (readMode == PointCloudPlayer.DataReadModes.Local || (readMode == PointCloudPlayer.DataReadModes.StreamingAssets && isEditor))
             {
                 stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
             }
@@ -146,9 +145,10 @@ namespace PCP
         /// </summary>
         /// <param name="path"></param>
         /// <param name="readMode"></param>
-        /// <param name="callback"></param>
+        /// <param name="successCallback"></param>
+        /// <param name="failureCallback"></param>
         /// <returns></returns>
-        public IEnumerator ImportData(string path, PointCloudPlayer.DataReadModes readMode, Action<DataBody> callback)
+        public IEnumerator ImportData(string path, PointCloudPlayer.DataReadModes readMode, Action<DataBody> successCallback, Action failureCallback)
         {
             yield return Ninja.JumpToUnity;
 
@@ -159,10 +159,21 @@ namespace PCP
 
             if (stream != null)
             {
-                var header = ReadDataHeader(new StreamReader(stream));
+                DataHeader header = null;
+                try
+                {
+                    header = ReadDataHeader(new StreamReader(stream));
+                } catch(Exception e)
+                {
+                    //Debug.LogWarning(e);
+                    failureCallback?.Invoke();
+                    yield break;
+                }
                 var body = ReadDataBody(header, new BinaryReader(stream));
-                yield return null;
-                callback?.Invoke(body);
+                //yield return null;
+
+                //yield return Ninja.JumpToUnity;
+                successCallback?.Invoke(body);
             }
         }
 

@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using UnityEngine.Networking;
 using UnityEngine.Events;
 using PCP.Utils;
+using System.Linq;
 
 namespace PCP
 {
@@ -39,23 +40,52 @@ namespace PCP
 
         public int FPS = 30;
         public bool isLoop = true;
+        public int BufferSize = 20;
+        public int filterEveryN = 0;
 
         private float t;
         private int playIndex, lastPlayedIndex;
         private string[] plyFiles;
 
+        private int loadIndex, orderedLoadIndex;
+
         public int PlayIndex { get => playIndex; set => playIndex = value; }
+
+        //Queue<PlyImporter.DataBody> plyBuffer;
+        PlyImporter.DataBody[] plyBuffer;
+        //private int loadOrderCount;
+
+        UnityEvent OnPlyFilesListUpdated = new UnityEvent();
 
         private void OnEnable()
         {
-            PlayIndex = 0;
+            //plyBuffer = new Queue<PlyImporter.DataBody>(BufferSize);
+            ResetIndexesAndBuffer();
+
+            OnPlyFilesListUpdated.AddListener(() =>
+            {
+                plyBuffer = new PlyImporter.DataBody[plyFiles.Length];
+                print(plyBuffer[0]);
+            });
+
             UpdatePLYFiles();
+        }
+
+        private void ResetIndexesAndBuffer()
+        {
+            PlayIndex = 0;
+            loadIndex = 0;
+            if (plyFiles != null) plyBuffer = new PlyImporter.DataBody[plyFiles.Length];
+            else plyBuffer = null;
         }
 
         private void UpdatePLYFiles()
         {
             if (ReadMode == DataReadModes.Local)
+            {
                 plyFiles = Directory.GetFiles(LocalPath, "*.ply*");
+                OnPlyFilesListUpdated.Invoke();
+            }
             else if (ReadMode == DataReadModes.StreamingAssets)
             {
 #if UNITY_EDITOR
@@ -64,9 +94,13 @@ namespace PCP
                 List<string> plyFilesList = ReadAssetIndexer();
                 plyFiles = plyFilesList.ToArray();
 #endif
+                OnPlyFilesListUpdated.Invoke();
             }
             else if (ReadMode == DataReadModes.Remote)
-                StartCoroutine(GetFilesFromHTTP(RemoteHostPath, (val) => { plyFiles = val; }));
+                StartCoroutine(GetFilesFromHTTP(RemoteHostPath, (val) => { 
+                    plyFiles = val;
+                    OnPlyFilesListUpdated.Invoke();
+                }));
         }
 
         private List<string> ReadAssetIndexer()
@@ -122,55 +156,140 @@ namespace PCP
             return "<a href=\".*\">(?<name>.*)</a>";
         }
 
-        private IEnumerator Play(int index)
+        private IEnumerator LoadToBuffer(int index)
         {
-            PlyImporter.DataBody plyData = null;
-            string filepath = plyFiles[PlayIndex];
+            //PlyImporter.DataBody plyData = null;
+            string filepath = plyFiles[index];
 
-            yield return this.StartCoroutineAsync(PlyImporter.Instance.ImportData(filepath, ReadMode, (data) => { plyData = data; }));
-
-            bool dropFrames = false;
-            if (plyData != null)
+            yield return this.StartCoroutineAsync(PlyImporter.Instance.ImportData(filepath, ReadMode, (data) =>
             {
-                if (lastPlayedIndex > index && index != 0)
+                //print("Loaded: " + filepath);
+                //--loadOrderCount;
+                //plyBuffer.Enqueue(data);
+                plyBuffer[index] = data;
+                //print(loadOrderCount);
+            }, () =>
+            {
+                plyBuffer[index] = new PlyImporter.DataBody(0);
+                //--loadOrderCount;
+                //print(loadOrderCount);
+            }));
+
+        }
+        private void FillBuffer()
+        {
+            var bufferEndIndex = Mathf.Clamp(playIndex + BufferSize, 0, plyFiles.Length);
+            while (bufferEndIndex > loadIndex)
+            {
+                StartCoroutine(LoadToBuffer(loadIndex++));
+                //if (loadIndex >= plyFiles.Length && isLoop)
+                //{
+                //    loadIndex = 0;
+                //}
+            }
+        }
+
+        private void Play(PlyImporter.DataBody plyData)
+        {
+            //bool dropFrames = false;
+            if (plyData == null)
+            {
+                return;
+            }
+            //if (lastPlayedIndex > index && index != 0)
+            //{
+            //    //print("Obsolete data received");
+            //    OnObsoleteDataReceived.Invoke();
+            //    dropFrames = true;
+            //}
+
+            //if (dropFrames)
+            //    yield break;
+
+            var vertices = plyData.vertices;
+            var colors = plyData.colors;
+
+            Collider[] activeFilterColliders = GetComponentsInChildren<Collider>().Where(c => c.enabled).ToArray();
+
+            if (activeFilterColliders.Length > 0)
+            {
+                List<Vector3> filteredVertices = new List<Vector3>();
+                List<Color32> filteredColors = new List<Color32>();
+
+                for (int i = 0; i < vertices.Count; i++)
                 {
-                    //print("Obsolete data received");
-                    OnObsoleteDataReceived.Invoke();
-                    dropFrames = true;
+                    var vertex = vertices[i];
+                    var color = colors[i];
+                    for (int j = 0; j < activeFilterColliders.Length; j++)
+                    {
+                        var filterCollider = activeFilterColliders[j];
+                        if (filterCollider.bounds.Contains(transform.TransformPoint(vertices[i])))
+                        {
+                            filteredVertices.Add(vertex);
+                            filteredColors.Add(color);
+                            break;
+                        }
+                    }
                 }
 
-                if (!dropFrames)
-                {
-                    gameObject.GetComponent<ParticlesFromData>().Set(plyData.vertices, plyData.colors);
-                    lastPlayedIndex = index;
-                }
+                vertices = filteredVertices;
+                colors = filteredColors;
             }
 
-            //gameObject.GetComponent<ParticlesFromVertices>().New(plyData.vertices, plyData.colors, 0.1f);
+            if (filterEveryN > 0)
+            {
+                vertices = vertices.Where((x, i) => i % filterEveryN == 0).ToList();
+                colors = colors.Where((x, i) => i % filterEveryN == 0).ToList();
+            }
+
+            if(vertices.Count > 0)
+            {
+                gameObject.GetComponent<ParticlesFromData>().Set(vertices, colors);
+                //lastPlayedIndex = index;
+
+                var PfV = gameObject.GetComponent<ParticlesFromVertices>();
+                PfV?.New(vertices, colors);
+            }
+        }
+
+        private void Start()
+        {
+            //StartCoroutine(FillBuffer());
         }
 
         private void Update()
         {
-            if (plyFiles == null)
+            if (plyFiles == null || plyBuffer == null)
             {
                 return;
             }
 
+            FillBuffer();
+
             FPS = Mathf.Max(1, FPS);
-
             t += Time.deltaTime;
-
             if (plyFiles.Length > 0 && t >= 1f / FPS)
             {
                 t = 0;
                 if (PlayIndex < plyFiles.Length)
                 {
-                    StartCoroutine(Play(playIndex));
-                    ++PlayIndex;
+                    //StartCoroutine(Play(playIndex));
+                    //if (plyBuffer.TryDequeue(out PlyImporter.DataBody data))
+                    var plyData = plyBuffer[PlayIndex];
+                    if (plyData != null)
+                    {
+                        Play(plyData);
+                        plyBuffer[PlayIndex] = null;
+                        ++PlayIndex;
+                    }
+                    else
+                    {
+                        print("Running faster than buffer can fill!");
+                    }
                 }
                 else if (isLoop)
                 {
-                    PlayIndex = 0;
+                    ResetIndexesAndBuffer();
                 }
             }
 
